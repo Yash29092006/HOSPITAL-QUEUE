@@ -62,3 +62,61 @@ CREATE TABLE patient_queue (
 
     CHECK (priority IN (1, 2))
 );
+
+-- Insert sample patients
+INSERT INTO patients
+(patient_name, age, gender, phone, medical_condition)
+VALUES
+('Rahul Sharma', 25, 'Male', '9876543210', 'Fever'),
+('Priya Singh', 30, 'Female', '9876543211', 'Headache'),
+('Aman Verma', 45, 'Male', '9876543212', 'Chest Pain');
+
+
+-- Insert sample doctors
+INSERT INTO doctors
+(doctor_name, specialization)
+VALUES
+('Dr. Amit', 'General Physician'),
+('Dr. Neha', 'Cardiologist');
+
+
+-- Insert sample resources
+INSERT INTO resources
+(resource_name, resource_type, status)
+VALUES
+('Bed 101', 'General Bed', 'Available'),
+('ICU 01', 'ICU Bed', 'Available'),
+('ECG Machine', 'Medical Equipment', 'Available');
+
+
+-- Insert appointments
+INSERT INTO appointments
+(patient_id, doctor_id)
+VALUES
+(1, 1),
+(2, 2);
+
+
+-- Insert patients into queue
+INSERT INTO patient_queue
+(patient_id, priority)
+VALUES
+(1, 1),
+(2, 1),
+(3, 2);
+
+-- Display all patients
+SELECT * FROM patients;
+
+-- Display all doctors
+SELECT * FROM doctors;
+
+-- Display all hospital resources
+SELECT * FROM resources;
+
+-- Display all appointments
+SELECT * FROM appointments;
+
+-- Display patient queue
+SELECT * FROM patient_queue;
+
