@@ -1,0 +1,64 @@
+CREATE DATABASE hospital_db;
+
+USE hospital_db;
+
+
+-- 1. Patient Table
+CREATE TABLE patients (
+    patient_id INT AUTO_INCREMENT PRIMARY KEY,
+    patient_name VARCHAR(100) NOT NULL,
+    age INT,
+    gender VARCHAR(10),
+    phone VARCHAR(15),
+    medical_condition VARCHAR(200),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- 2. Doctor Table
+CREATE TABLE doctors (
+    doctor_id INT AUTO_INCREMENT PRIMARY KEY,
+    doctor_name VARCHAR(100) NOT NULL,
+    specialization VARCHAR(100),
+    availability VARCHAR(20) DEFAULT 'Available'
+);
+
+
+-- 3. Hospital Resources Table
+CREATE TABLE resources (
+    resource_id INT AUTO_INCREMENT PRIMARY KEY,
+    resource_name VARCHAR(100) NOT NULL,
+    resource_type VARCHAR(50) NOT NULL,
+    status VARCHAR(20) DEFAULT 'Available'
+);
+
+
+-- 4. Appointment Table
+CREATE TABLE appointments (
+    appointment_id INT AUTO_INCREMENT PRIMARY KEY,
+    patient_id INT NOT NULL,
+    doctor_id INT NOT NULL,
+    appointment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(30) DEFAULT 'Scheduled',
+
+    FOREIGN KEY (patient_id)
+        REFERENCES patients(patient_id),
+
+    FOREIGN KEY (doctor_id)
+        REFERENCES doctors(doctor_id)
+);
+
+
+-- 5. Patient Queue Table
+CREATE TABLE patient_queue (
+    queue_id INT AUTO_INCREMENT PRIMARY KEY,
+    patient_id INT NOT NULL,
+    priority INT NOT NULL DEFAULT 1,
+    arrival_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) DEFAULT 'Waiting',
+
+    FOREIGN KEY (patient_id)
+        REFERENCES patients(patient_id),
+
+    CHECK (priority IN (1, 2))
+);
